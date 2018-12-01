@@ -4,4 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CombineDB.Core.Abstractions\CombineDB.Core.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>
