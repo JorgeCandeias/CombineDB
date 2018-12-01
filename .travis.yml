@@ -3,8 +3,8 @@ solution: CombineDB.sln
 mono: none
 dotnet: 2.1
 install:
-  - nuget restore CombineDB.sln
-  - nuget install NUnit.Console -Version 3.9.0 -OutputDirectory TestRunner
+  - dotnet restore CombineDB.sln
+  - dotnet add package NUnit.Console -Version 3.9.0 -OutputDirectory TestRunner
 script:
   - xbuild /p:Configuration=Release CombineDB.sln
   - mono ./testrunner/NUnit.Console.3.9.0/tools/nunit-console.exe ./CombineDB.UnitTests/bin/Release/CombineDB.UnitTests.dll
