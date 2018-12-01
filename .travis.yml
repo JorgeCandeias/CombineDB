@@ -3,7 +3,7 @@ solution: CombineDB.sln
 mono: none
 dotnet: 2.1
 install:
-  - nuget restore solution-name.sln
+  - nuget restore CombineDB.sln
   - nuget install NUnit.Console -Version 3.9.0 -OutputDirectory TestRunner
 script:
   - xbuild /p:Configuration=Release CombineDB.sln
