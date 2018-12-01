@@ -1,0 +1,8 @@
+language: csharp
+solution: CombineDB.sln
+install:
+  - nuget restore solution-name.sln
+  - nuget install NUnit.Console -Version 3.9.0 -OutputDirectory TestRunner
+script:
+  - xbuild /p:Configuration=Release CombineDB.sln
+  - mono ./testrunner/NUnit.Console.3.9.0/tools/nunit-console.exe ./CombineDB.UnitTests/bin/Release/CombineDB.UnitTests.dll
