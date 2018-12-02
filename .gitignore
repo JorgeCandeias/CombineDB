@@ -328,3 +328,8 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+# MiniCover
+/coverage-html
+/coverage.json
+/coverage.hits
