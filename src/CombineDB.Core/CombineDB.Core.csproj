@@ -2,10 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.0.1-alpha</Version>
+    <Description>A lightweight in-memory event-sourced .NET object database for fast projections.</Description>
+    <PackageLicenseUrl>https://github.com/JorgeCandeias/CombineDB/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/JorgeCandeias/CombineDB</RepositoryUrl>
+    <PackageReleaseNotes>Pre-Release. Use at your own risk.</PackageReleaseNotes>
+    <Authors>Jorge Candeias</Authors>
+    <Company>Jorge Candeias</Company>
+    <Product>CombineDB</Product>
+    <Copyright>https://github.com/JorgeCandeias/CombineDB/blob/master/LICENSE</Copyright>
+    <PackageProjectUrl>https://github.com/JorgeCandeias/CombineDB</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Reactive" Version="4.1.2" />
     <PackageReference Include="System.Threading.Tasks.Dataflow" Version="4.9.0" />
   </ItemGroup>
 
