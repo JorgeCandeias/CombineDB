@@ -1,13 +1,18 @@
-﻿namespace CombineDB.Core
+﻿using System;
+
+namespace CombineDB.Core
 {
-    public interface ICombineSet
+    public interface ICombineSet<T>
     {
+        void Subscribe(ICombineView<T> view);
     }
 
-    public interface ICombineSet<T, K> : ICombineSet
+    public interface ICombineSet<T, TKey> : ICombineSet<T>
     {
+        T Get(TKey key);
+        void Add(T item);
         void Set(T item);
-        T Get(K key);
-        T GetOrDefault(K key);
+        bool Remove(TKey key);
+        int Count { get; }
     }
 }

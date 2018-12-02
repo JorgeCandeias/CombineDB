@@ -3,37 +3,59 @@ using System.Collections.Generic;
 
 namespace CombineDB.Core
 {
-    public class CombineSet<T, K> : ICombineSet<T, K>
+    public class CombineSet<T, TKey> : ICombineSet<T, TKey>
     {
-        private readonly Func<T, K> _keyExtractor;
-        private readonly Dictionary<K, T> _data = new Dictionary<K, T>();
+        private readonly Func<T, TKey> _keyExtractor;
+        private readonly Dictionary<TKey, T> _data = new Dictionary<TKey, T>();
 
-        public CombineSet(Func<T, K> keyExtractor)
+        public CombineSet(Func<T, TKey> keyExtractor)
         {
             _keyExtractor = keyExtractor;
         }
 
-        public T Get(K key)
+        public T Get(TKey key)
         {
             return _data[key];
         }
 
-        public T GetOrDefault(K key)
+        public void Add(T item)
         {
-            if (_data.TryGetValue(key, out T value))
+            _data.Add(_keyExtractor(item), item);
+            foreach (var view in _subscribers)
             {
-                return value;
-            }
-            else
-            {
-                return default(T);
+                view.HandleItemAdded(item);
             }
         }
 
         public void Set(T item)
         {
-            _data[_keyExtractor(item)] = item;
+            Remove(_keyExtractor(item));
+            Add(item);
         }
 
+        public bool Remove(TKey key)
+        {
+            if (_data.TryGetValue(key, out var item))
+            {
+                _data.Remove(key);
+                foreach (var view in _subscribers)
+                {
+                    view.HandleItemRemoved(item);
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private readonly HashSet<ICombineView<T>> _subscribers = new HashSet<ICombineView<T>>();
+        public void Subscribe(ICombineView<T> view)
+        {
+            _subscribers.Add(view);
+        }
+
+        public int Count => _data.Count;
     }
 }

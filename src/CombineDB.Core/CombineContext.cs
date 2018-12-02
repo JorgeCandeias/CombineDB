@@ -30,7 +30,14 @@ namespace CombineDB.Core
                         // wait for previous command to complete
                         while (_commands.Count > 0)
                         {
-                            await _commands.Dequeue();
+                            try
+                            {
+                                await _commands.Dequeue();
+                            }
+                            catch (Exception)
+                            {
+                                // log something
+                            }
                         }
 
                         // execute this query along with other queries
@@ -42,13 +49,27 @@ namespace CombineDB.Core
                         // wait for previous commands to complete
                         while (_commands.Count > 0)
                         {
-                            await _commands.Dequeue();
+                            try
+                            {
+                                await _commands.Dequeue();
+                            }
+                            catch (Exception)
+                            {
+                                // log something
+                            }
                         }
 
                         // wait for previous queries to complete
                         while (_queries.Count > 0)
                         {
-                            await _queries.Dequeue();
+                            try
+                            {
+                                await _queries.Dequeue();
+                            }
+                            catch (Exception)
+                            {
+                                // log something
+                            }
                         }
 
                         // execute this command now
