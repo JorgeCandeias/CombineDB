@@ -25,6 +25,18 @@ namespace CombineDB.Core
             {
                 switch (e)
                 {
+                    case ICombineQuery<TModel> query:
+
+                        // wait for previous command to complete
+                        while (_commands.Count > 0)
+                        {
+                            await _commands.Dequeue();
+                        }
+
+                        // execute this query along with other queries
+                        _queries.Enqueue(query.ExecuteAsync(_model));
+                        break;
+
                     case ICombineCommand<TModel> command:
 
                         // wait for previous commands to complete
@@ -41,18 +53,6 @@ namespace CombineDB.Core
 
                         // execute this command now
                         _commands.Enqueue(command.ExecuteAsync(_model));
-                        break;
-
-                    case ICombineQuery<TModel> query:
-
-                        // wait for previous command to complete
-                        while (_commands.Count > 0)
-                        {
-                            await _commands.Dequeue();
-                        }
-
-                        // execute this query along with other queries
-                        _queries.Enqueue(query.ExecuteAsync(_model));
                         break;
 
                     default:

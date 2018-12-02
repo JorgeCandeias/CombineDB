@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CombineDB.Core;
 
 namespace CombineDB.UnitTests
@@ -16,6 +15,8 @@ namespace CombineDB.UnitTests
         protected override Task<SomeEntity> ApplyAsync(SomeModel model)
         {
             model.Entities[Entity.Id] = Entity;
+            model.SumOfValues += Entity.Value;
+
             return Task.FromResult(Entity);
         }
     }

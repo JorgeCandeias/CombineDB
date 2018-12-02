@@ -6,6 +6,6 @@ namespace CombineDB.UnitTests
     {
         public Dictionary<int, SomeEntity> Entities = new Dictionary<int, SomeEntity>();
 
-        public double SumOfValues { get; set; }
+        public decimal SumOfValues { get; set; }
     }
 }
